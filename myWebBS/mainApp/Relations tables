@@ -1,0 +1,79 @@
+class Bookstopublisher(models.Model):
+    bookid = models.ForeignKey(Books, models.DO_NOTHING, db_column='BookId', primary_key=True)  # Field name made lowercase.
+    publisherid = models.ForeignKey('Publisher', models.DO_NOTHING, db_column='PublisherId')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'bookstopublisher'
+        unique_together = (('bookid', 'publisherid'),)
+
+class Bookstoauthors(models.Model):
+    bookid = models.ForeignKey(Books, models.DO_NOTHING, db_column='BookId', primary_key=True)  # Field name made lowercase.
+    authorid = models.ForeignKey(Authors, models.DO_NOTHING, db_column='AuthorId')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'bookstoauthors'
+        unique_together = (('bookid', 'authorid'),
+
+
+
+class Userstocomments(models.Model):
+    userid = models.ForeignKey(Users, models.DO_NOTHING, db_column='UserId', primary_key=True)  # Field name made lowercase.
+    commentid = models.ForeignKey(Reviewcomments, models.DO_NOTHING, db_column='CommentId')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'userstocomments'
+        unique_together = (('userid', 'commentid'),)
+
+class Reviewtobooks(models.Model):
+    bookid = models.ForeignKey(Books, models.DO_NOTHING, db_column='BookId', primary_key=True)  # Field name made lowercase.
+    reviewid = models.ForeignKey(Review, models.DO_NOTHING, db_column='ReviewId')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'reviewtobooks'
+        unique_together = (('bookid', 'reviewid'),)
+
+
+class Bookstousers(models.Model):
+    bookid = models.ForeignKey(Books, models.DO_NOTHING, db_column='BookId', primary_key=True)  # Field name made lowercase.
+    userid = models.ForeignKey('Users', models.DO_NOTHING, db_column='UserId')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'bookstousers'
+        unique_together = (('bookid', 'userid'),)
+
+
+# !!!!!!!!!!!!!!!!!!!!!!!!! Relations tables !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+class Bookstoauthors(models.Model):
+    bookid = models.ForeignKey(Books, db_column='BookId')
+    authorid = models.ForeignKey(Authors, db_column='AuthorId')
+
+
+class Bookstopublisher(models.Model):
+    bookid = models.ForeignKey(Books, db_column='BookId')
+    publisherid = models.ForeignKey('Publisher', db_column='PublisherId')
+
+class Bookstogenres(models.Model):
+    bookid = models.ForeignKey(Books, db_column='BookId')
+    genresid = models.ForeignKey(Genres, db_column='GenresId')
+
+class Bookstousers(models.Model):
+    bookid = models.ForeignKey(Books, db_column='BookId')
+    userid = models.ForeignKey(Users, db_column='UserId')
+    datestartrent = models.DateTimeField(db_column='DateStartRent')
+    dateexpectedrent = models.DateTimeField(db_column='DateExpectedRent')
+    dateendrent = models.DateTimeField(db_column='DateEndRent')
+
+class Userstocomments(models.Model):
+    userid = models.ForeignKey(Users, db_column='UserId')
+    commentid = models.ForeignKey(Reviewcomments, db_column='CommentId')
+
+class Reviewtobooks(models.Model):
+    bookid = models.ForeignKey(Books, db_column='BookId')
+    reviewid = models.ForeignKey(Review, db_column='ReviewId')
