@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Main</title>
-
 </head>
 <body>
-<p>
- Просто текст
-</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit"></p>
+</form>
+
+<ul>
+    {% for books in res %}
+        {% for b in books %}
+            <li>{{ b.name }}</li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+
 </body>
 </html>
