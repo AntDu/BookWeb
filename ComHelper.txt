@@ -1,9 +1,0 @@
-django-admin.exe startproject mysite . - сщздаем новое приложение django
-
-python manage.py startapp appname - добавляем новое приложение
-
-
-python manage.py makemigrations
-python manage.py migrate
-
-python manage.py runserver - запустить сервер
