@@ -15,6 +15,7 @@ from datetime import timedelta
 YES_COMMANDS = ('yes', 'y')
 NO_COMMANDS = ('no', 'n')
 
+
 def random_date(start, end):
     """
     This function will return a random datetime between two datetime
@@ -41,10 +42,7 @@ class Command(BaseCommand):
             '--clean',
             action='store_true',
             dest='clean',
-            # choices=['y', 'n']
         )
-
-    # python manage.py create_test_data
 
     def handle(self, *args, **options):
 
@@ -59,10 +57,6 @@ class Command(BaseCommand):
                 Book.objects.all().delete()
                 Publisher.objects.all().delete()
                 Genre.objects.all().delete()
-
-
-
-
 
         num = options['num'][0]
 
