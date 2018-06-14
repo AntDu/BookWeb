@@ -2,7 +2,6 @@
 
 import names
 import random
-import argparse
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db import IntegrityError
@@ -13,6 +12,8 @@ from datetime import datetime
 from random import randrange
 from datetime import timedelta
 
+YES_COMMANDS = ('yes', 'y')
+NO_COMMANDS = ('no', 'n')
 
 def random_date(start, end):
     """
@@ -46,22 +47,23 @@ class Command(BaseCommand):
     # python manage.py create_test_data
 
     def handle(self, *args, **options):
-        # TODO move this to args (in terminal)
-        # $ python manage.py create_test_data 1000
-
-        # TODO add key
-        # python manage.py create_test_data 1000 --clean=y/n
-
-        # clean DB data
 
         if options['clean']:
-            Author.objects.all().delete()
-            Book.objects.all().delete()
-            Publisher.objects.all().delete()
-            Genre.objects.all().delete()
+            print("Are you sure you want to delete all data?: y/n\n")
+            user_choice = input(">>> ").strip().lower()
+            if user_choice.isalpha() and user_choice in NO_COMMANDS and user_choice not in YES_COMMANDS:
+                print('Right choice')
+            if user_choice.isalpha() and user_choice in YES_COMMANDS and user_choice not in NO_COMMANDS:
+                print('You\'re the boss, already delete')
+                Author.objects.all().delete()
+                Book.objects.all().delete()
+                Publisher.objects.all().delete()
+                Genre.objects.all().delete()
 
 
-        # num = 10
+
+
+
         num = options['num'][0]
 
         # create author
