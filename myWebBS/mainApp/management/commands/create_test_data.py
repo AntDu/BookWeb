@@ -1,5 +1,4 @@
 
-
 import names
 import random
 
@@ -47,10 +46,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         if options['clean']:
+
             print("Are you sure you want to delete all data?: y/n\n")
             user_choice = input(">>> ").strip().lower()
+
             if user_choice.isalpha() and user_choice in NO_COMMANDS and user_choice not in YES_COMMANDS:
                 print('Right choice')
+
             if user_choice.isalpha() and user_choice in YES_COMMANDS and user_choice not in NO_COMMANDS:
                 print('You\'re the boss, already delete')
                 Author.objects.all().delete()
@@ -60,7 +62,6 @@ class Command(BaseCommand):
 
         num = options['num'][0]
 
-        # create author
         for i in range(num):
             first_name = names.get_first_name()
             last_name = names.get_last_name()
