@@ -27,15 +27,17 @@ def index(request):
 
 
 def add_author(request):
-
+    # зачем тебе это?
     author = request.Author
     form = AddAuthorForm(request.POST or None)
-
+    
     if request.method == 'GET':
         pass
     # нужна ли эта проверка?
+    # нет, не нужно!
 
     if request.method == 'POST' and form.is_valid():
+        # строчки 41-47 не нужны. просто сохрани форму и после сделай редирект куда необходимо
         name = form.cleaned_data.get('name')
         surname = form.cleaned_data.get('surname')
         age = form.cleaned_data.get('age')
