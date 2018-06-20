@@ -1,10 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
-from mainApp.forms import searchForm
+from django.db.models import Q
+from mainApp.forms import SearchForm, AddAuthorForm
 from mainApp.models import Author, Book
-
 
 
 def index(request):
@@ -14,26 +13,38 @@ def index(request):
     3.create url
     4.render via template (html)
     """
-
-    f = searchForm(request.POST or None)
+    f = SearchForm(request.POST or None)
     if request.method == 'POST' and f.is_valid():
         search_val = f.cleaned_data.get('search_field')
-        qs = Author.objects.filter(name__contains=search_val)
-        res = []
-        for b in qs:
-           res.append(b.book_set.all())
+        qs = Author.objects.filter(Q(name__icontains=search_val) | Q(surname__icontains=search_val))
+        res = [b.book_set.all() for b in qs]
+        # res = []
+        # for b in qs:
+        #    res.append(b.book_set.all())
         print(res)
-        return render(request, 'base.html', {'res': res})
+        return render(request, 'search_book.html', {'res': res})
+    return render(request, 'search_book.html', {'form': f})
 
 
+def add_author(request):
 
-    return render(request, 'base.html', {'form': f})
+    author = request.Author
+    form = AddAuthorForm(request.POST or None)
 
-# @csrf_exempt
-# def search_by_author(request):
-#     if request.method == 'POST':
-#         print(request)
-#         redirect('mainApp:index')
-#     else:
-#         return HttpResponse('GET')
-#     return True
+    if request.method == 'GET':
+        pass
+    # нужна ли эта проверка?
+
+    if request.method == 'POST' and form.is_valid():
+        name = form.cleaned_data.get('name')
+        surname = form.cleaned_data.get('surname')
+        age = form.cleaned_data.get('age')
+        author.name = name
+        author.surname = surname
+        author.age = age
+        author.save()
+        # не получается сделать redirect на пустую форму
+
+    return render(request, 'add_author.html', {'form': form})
+
+

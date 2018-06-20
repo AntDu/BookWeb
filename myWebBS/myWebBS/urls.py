@@ -20,4 +20,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^main/', include('mainApp.urls')),
+    url(r'^addauthor/', include('mainApp.urls')),
+
 ]

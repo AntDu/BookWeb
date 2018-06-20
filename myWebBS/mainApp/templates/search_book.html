@@ -1,0 +1,13 @@
+{% extends 'exp_base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for books in res %}
+        {% for b in books %}
+            <li>{{ b.name }}</li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+{% endblock content %}

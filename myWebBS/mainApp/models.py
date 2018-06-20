@@ -14,7 +14,7 @@ class Book(models.Model):
     name = models.CharField(max_length=256, blank=True, null=True)
     description = models.CharField(max_length=256, blank=True, null=True)
     publish_year = models.DateTimeField()
-    book_to_author = models.ManyToManyField("Author")
+    book_to_author = models.ManyToManyField(Author)
 
     def __str__(self):
         return self.name
@@ -51,7 +51,7 @@ class User(models.Model):
     book_to_user = models.ManyToManyField(Book)
 
     def __str__(self):
-        return f'{self.firstname} {self.lastname}'
+        return f'{self.first_name} {self.last_name}'
 
 
 class Review(models.Model):

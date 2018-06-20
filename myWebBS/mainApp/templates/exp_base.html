@@ -1,24 +1,22 @@
-{% extend "base.htm" %}
+{% load staticfiles %}
 
-{% block page %}
-	{% block content %}
-	{% endblock %}
-
-	{% block sidebar %}
-	{% endblock %}
-{% endblock %}
-
+<html>
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/mainApp.css' %}">
 
 
+</head>
+<body>
+<div class="page-header">
+    <h1><a id="header-link" href="/">Books Shelf</a></h1>
+</div>
 
-{% endblock %}
+{% block content %}
+{% endblock content %}
 
-{% block page %}
-	{% block content %}
-	{% endblock %}
-{% endblock %}
 
-{% block footer %}
-	{% block copyright %}
-	{% endblock %}
-{% endblock %}
+</body>
+</html>
