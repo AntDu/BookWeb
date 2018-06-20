@@ -10,7 +10,15 @@ from mainApp.models import Author
 class SearchForm(forms.Form):
     search_field = forms.CharField()
 
-
+"""
+Ты доку открывал?
+# Create the form class.
+>>> class ArticleForm(ModelForm):
+...     class Meta:
+...         model = Article
+...         fields = ['pub_date', 'headline', 'content', 'reporter']
+https://docs.djangoproject.com/en/1.11/topics/forms/modelforms/
+"""
 class AddAuthorForm(forms.Form):
     name = forms.CharField(max_length=32)
     surname = forms.CharField(max_length=64)
