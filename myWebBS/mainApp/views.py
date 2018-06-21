@@ -22,29 +22,22 @@ def index(request):
         # for b in qs:
         #    res.append(b.book_set.all())
         print(res)
-        return render(request, 'search_book.html', {'res': res})
+        return render(request, 'search_book.html', {'res': res, 'form': f})
     return render(request, 'search_book.html', {'form': f})
+
+# Глобальный контекст или же контекстт  процессов
+#
 
 
 def add_author(request):
 
-    author = request.Author
+
     form = AddAuthorForm(request.POST or None)
 
-    if request.method == 'GET':
-        pass
-    # нужна ли эта проверка?
-
     if request.method == 'POST' and form.is_valid():
-        name = form.cleaned_data.get('name')
-        surname = form.cleaned_data.get('surname')
-        age = form.cleaned_data.get('age')
-        author.name = name
-        author.surname = surname
-        author.age = age
-        author.save()
-        # не получается сделать redirect на пустую форму
+        form.save()
+        return redirect(reverse('main:index'))
 
-    return render(request, 'add_author.html', {'form': form})
+    return render(request, 'add_author.html', {'add_author_form': form})
 
 

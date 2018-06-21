@@ -1,11 +1,11 @@
-{% extends 'exp_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}CREATE AUTHOR{% endblock title %}
 
 {% block content %}
-    <form method="POST" class="author-form" action="{% url 'add_author' %}">
+    <form method="POST" action="{% url 'main:add-author' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ add_author_form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock content %}
